@@ -1101,15 +1101,19 @@ function openGrape(n, e){
 }
 
   if (n == 2) {
-    const chosenSymbol = symbols[n];
-    const meaning = fateMeaning[chosenSymbol.name];
+  // Find the full symbol object from the array that matches the name saved by the wheel
+  const symbolObj = symbols.find(s => s.name === chosenSymbol);
+  
+  // Safety check: if they haven't spun yet, or something went wrong
+  const displayEmoji = symbolObj ? symbolObj.emoji : "✨";
+  const displayName = chosenSymbol || "Your Destiny";
+  const meaning = fateMeaning[displayName] || "Your path is still unfolding.";
 
-    content = `
-      <h2>You chose the ${chosenSymbol.name} ${chosenSymbol.emoji}</h2>
-      <p>${meaning}</p>
-    `;
-  }
-
+  content = `
+    <h2>You chose the ${displayName} ${displayEmoji}</h2>
+    <p>${meaning}</p>
+  `;
+}
 
   if (n == 3) {
   const meaning = cardMeaning[chosenCard];
@@ -1227,3 +1231,4 @@ revealCardDiv.addEventListener("click", () => {
 </script>
 </body>
 </html>
+
